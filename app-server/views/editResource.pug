@@ -1,0 +1,33 @@
+extends layout 
+
+block content
+  include navbar.pug
+  .w3-container
+    h1= title 
+
+    .w3-container(style='margin-top: 50px;')
+      form.w3-container(action='/resources/edit/' + resource._id  method='POST')
+        .w3-row-padding
+          .w3-col.s6
+            label(for='file_title')
+              b Title
+            input#file_title.w3-input.w3-border.w3-light-grey(type='text' value=resource.title name='title')
+            br
+          .w3-col.s6
+            label(for='description')
+              b Description
+            input#description.w3-input.w3-border.w3-light-grey(type='text' value=resource.description name='description')
+            br
+          .w3-col.s6
+            label(for='type')
+              b Type
+            select.w3-select(name='type')
+              option(value='' disabled selected) Select Resource Type
+              option(value='Exam') Exam
+              option(value='Compiler') Compiler
+              option(value='Program') Program
+              option(value='Worksheet') Worksheet
+              option(value='Slides') Slides
+        .w3-container.w3-center
+          input.w3-btn.w3-green.w3-margin(type='submit' value='Confirm')
+          input.w3-btn.w3-red.w3-margin(type='reset' value='Clear')

@@ -1,0 +1,29 @@
+extends layout
+
+block content
+
+    include navbar.pug
+    .w3-container
+        h1.w3-center System Logs
+
+        if logs.length > 0
+            .w3-container
+                table.w3-table-all
+                    tr 
+                        th
+                            b Time 
+                        th 
+                            b User/Action
+                        th
+                        each log in logs
+                            tr
+                                td
+                                    b #{log.date}
+                                td
+                                    b #{log.user} 
+                                    | #{log.action} 
+                                td
+                                    a.w3-btn.w3-round-large.w3-hover-red(href="/logs/delete/" + log.id style='padding: 2px;')
+                                        img(src='../images/icons8-trash-64.png' style='width: 50%; height: 50%;') 
+        else
+            p.w3-center No logging records found.

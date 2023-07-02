@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  include navbar.pug
+  .w3-container
+    h1= title 
+
+    .w3-container(style='margin-top: 50px;')
+      form.w3-container(action='/users/profile' method='POST')
+        .w3-row-padding
+          .w3-col.s6
+            label(for='name')
+              b Name:
+            input#name.w3-input.w3-border.w3-light-grey(type='text' placeholder=user.name name='name')
+            br
+        .w3-row-padding
+          .w3-col.s6
+            label(for='affiliation')
+              b Affiliation
+            input#affiliation.w3-input.w3-border.w3-light-grey(type='text' placeholder=user.affiliation name='affiliation')
+            br
+        .w3-row-padding
+          .w3-col.s6
+            label(for='email')
+              b Email
+            input#email.w3-input.w3-border.w3-light-grey(type='text' placeholder=user.email name='email')
+            br
+        .w3-container.w3-center
+          input.w3-btn.w3-green.w3-margin(type='submit' value='Confirm')
+          input.w3-btn.w3-red.w3-margin(type='reset' value='Clear')

@@ -1,0 +1,33 @@
+extends layout 
+
+block content
+  //include navbar.pug
+  h1(style="text-align: center;") Register
+  .w3-container(style="display:flex;")
+    form.w3-container(action="/users/register", method="post")
+      .w3-container(style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 10px;")
+        .w3-cell-row
+          label.w3-text-grey Username
+          input.w3-input.w3-border(type="text", name="username", placeholder="Enter your username")
+        .w3-cell-row
+          label.w3-text-grey Name
+          input.w3-input.w3-border(type="text", name="name", placeholder="Enter your name")
+        .w3-cell-row
+          label.w3-text-grey Email
+          input.w3-input.w3-border(type="text", name="email", placeholder="Enter your email")
+        .w3-cell-row
+          label.w3-text-grey Affiliation
+          input.w3-input.w3-border(type="text", name="affiliation", placeholder="Enter your affiliation")
+        .w3-cell-row
+          label.w3-text-grey Password
+          input.w3-input.w3-border(type="password", name="password", placeholder="Enter your password")
+        .w3-cell-row
+          label.w3-text-grey Confirm Password
+          input.w3-input.w3-border(type="password", name="confirm_password", placeholder="Confirm your password")
+        .w3-cell-row 
+          label.w3-text-grey Level 
+          select(name='level')
+            option(value='consumer' ) consumer
+            option(value='producer' ) producer
+        .w3-cell-row.w3-middle-align 
+          button.w3-btn.w3-border.w3-margin.w3-light-grey(type="submit" value="Register") Register

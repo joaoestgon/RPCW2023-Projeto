@@ -1,0 +1,65 @@
+extends layout
+
+block content
+  include navbar.pug
+  .w3-container
+    .w3-row
+      .w3-half
+        h1= title 
+      .w3-half
+        a.w3-right.w3-btn.w3-round-large.w3-teal(href='/users/profile/edit' style='margin-top: 15px;') Edit profile
+
+    .w3-container
+      ul.w3-ul.w3-card-4
+        li #[b Name:] #{user.name}
+        li #[b Affiliation:] #{user.affiliation}
+        li #[b Email:] #{user.email}
+        li #[b Joined in:] #{user.dateCreated}
+        if user.level == 'admin' 
+          li #[b Authority Level:] Administrator
+        else if user.level == 'producer' 
+          li #[b Authority Level:] Producer
+        else  
+          li #[b Authority Level:] Consumer
+
+      if resources.length > 0
+        if user.level == 'producer' || user.level == 'admin'
+          p Submited resources:
+        else 
+          p Downloaded resources:
+        .w3-container(style='margin-top: 35px;')
+          table.w3-text-black.w3-table-all.w3-hoverable.w3-centered.w3-large(style='margin-bottom: 50px;')
+            tr
+              th Producer
+              th Submissor
+              th Title 
+              th Content type
+            each r in resources
+              tr(data-href= url + "/resources?id=" + r._id)
+                td= r.idProducer
+                td= r.idSubmissor
+                td= r.title
+                td= r.type
+                td 
+                  a.w3-btn.w3-round-large.w3-hover-blue(href='/resources/edit/' + r._id style='padding: 2px;')
+                    img(src='../images/icons8-edit-64.png' style='width: 50%; height: 50%;')
+                td
+                  a.w3-btn.w3-round-large.w3-hover-red(href='/resources/delete/' + r._id style='padding: 2px;')
+                    img(src='../images/icons8-trash-64.png' style='width: 50%; height: 50%;')
+
+      else if user.level == 'producer' || user.level == 'admin'
+        p No resources submitted by this user...
+      else if user.level == 'consumer' && resources.length > 0
+        p No resources downloaded by this user...
+
+  script. 
+    document.addEventListener("DOMContentLoaded", () => {
+      const rows = document.querySelectorAll("tr[data-href]");
+
+      rows.forEach(row => {
+        console.log(row);
+        row.addEventListener("click", () => {
+          window.location.href = row.dataset.href;
+        });
+      });
+    });

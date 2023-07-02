@@ -1,0 +1,53 @@
+extends layout
+
+block content
+  //Navbar
+  include navbar.pug
+  //Main page
+
+  //Apresentar notícias
+  if logged == 'true' 
+    .w3-container(style='margin-top: 2%') 
+      ul.w3-ul(style='width: 100%').w3-border
+        li
+          h2.w3-center News
+          if news.length > 0
+            if level == 'admin'
+              each n in news
+                li.w3-center
+                  .w3-row-padding
+                    .w3-half
+                      b #{n.title}: 
+                      |  #{n.author} #{n.content} at #{n.timestamp}
+                    if n.visible
+                      .w3-half
+                        .w3-row-padding
+                          .w3-half
+                            a.w3-btn.w3-round-large.w3-hover-blue(href="/news/edit/" + n._id + "?visible=invisible" style='padding: 2px;')
+                              img(src='../images/icons8-invisible-64.png' style='width: 50%; height: 50%;')
+                          .w3-half
+                            a.w3-btn.w3-round-large.w3-hover-red(href="/news/delete/" + n._id style='padding: 2px;')
+                              img(src='../images/icons8-trash-64.png' style='width: 50%; height: 50%;')
+                    else
+                      .w3-half
+                        .w3-row-padding
+                          .w3-half
+                            a.w3-btn.w3-round-large.w3-hover-blue(href="/news/edit/" + n._id + "?visible=visible" style='padding: 2px;')
+                              img(src='../images/icons8-eye-64.png' style='width: 50%; height: 50%;') 
+                          .w3-half
+                            a.w3-btn.w3-round-large.w3-hover-red(href="/news/delete/" + n._id style='padding: 2px;')
+                              img(src='../images/icons8-trash-64.png' style='width: 50%; height: 50%;') 
+
+            else 
+              each n in news
+                if n.visible
+                  li.w3-center 
+                    b #{n.title}:
+                    |  #{n.author} #{n.content} at #{n.timestamp}
+          else
+            li Nothing new for now...
+  else
+    .w3-container 
+      h1.w3-center PGDRE
+    .w3-container.w3-display-middle
+      img(src="./images/icons8-folder-256.png" style="width=80%").w3-auto

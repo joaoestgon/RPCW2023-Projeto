@@ -1,0 +1,78 @@
+version: '3'
+services:
+  api-service:
+    restart: always
+    image: joaoestgon/api-server:latest
+    ports:
+      - 42069:42069
+    depends_on: 
+      - mongo
+    environment:
+      - API_PORT_42169_TCP_ADDR=42169
+    networks:
+      - main-network
+      - resources-network
+
+  app-service:
+    restart: always
+    image: joaoestgon/app-server:latest
+    ports:
+      - 42169:42169
+    volumes:
+      - filesystem:/app/fileStorage
+    depends_on: 
+      - auth-service
+      - api-service
+      - log-service
+    networks:
+      - main-network
+
+  auth-service:
+    restart: always
+    image: joaoestgon/auth-server:latest
+    ports:
+      - 42269:42269
+    depends_on: 
+      - mongo
+    environment:
+      - AUTH_PORT_42069_TCP_ADDR=42269
+    networks:
+      - main-network
+      - users-network
+
+
+  log-service:
+    restart: always
+    image: joaoestgon/log-server:latest
+    ports:
+      - 42369:42369
+    networks:
+      - main-network
+    environment:
+      - LOG_PORT_42369_TCP_ADDR=42369
+
+  mongo:
+    restart: always
+    container_name: mongodb
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_volum:/data/db
+    networks:
+      - resources-network
+      - users-network
+    
+    
+volumes:
+ mongodb_volum:
+ filesystem:
+
+networks:
+  resources-network:
+    driver: bridge
+  users-network:
+    driver: bridge
+  main-network:
+    driver: bridge
+  

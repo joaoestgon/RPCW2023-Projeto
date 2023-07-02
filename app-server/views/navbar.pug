@@ -1,0 +1,49 @@
+body
+  .topnav
+    if logged == undefined
+      a(href="/register").w3-right Register
+      a(href="/login").w3-right Login
+    else
+      button.w3-border-0.w3-circle.w3-black.w3-left.form-inline-button(style="width: 50px; height: 50px; padding: 0; background: none;")
+        a(href="/")
+          img(src="../../images/icons8-home-64.png", style="width: 200%; height: 200%; margin-left: -50%; margin-top: -25%;")
+      .navbar-search-container
+        form.form-inline.w3-left.w3-container(action="/resources/search")
+          input.w3-left.form-inline-input(type="text" placeholder="Search" name="search" style="border-radius: 20px;")
+          button.w3-border-0.w3-circle.w3-black.w3-right.w3-hover-white.form-inline-button(type="submit" value="Search" style="width: 50px; height: 50px")
+            img(src="../../images/icons8-search-64.png" style="width: auto; height: 100%; margin-left: -100%;")
+            //- b Search
+      
+      a(href="/users/logout").w3-right Logout
+      //a(href="/users/logout")
+          img(src="../../images/icons8-logout-64.png", style="width: 50%; height: 50%;").w3-right
+      a(href="/users/profile").w3-right Profile
+      //a(href="/users/profile")
+        img(src="../../images/icons8-user-default-64.png", style="width: 50%; height: 50%;").w3-right
+      .dropdown.w3-right
+        button.dropdown.dropbtn Types
+        .dropdown.dropdown-content(style="border-radius: 10px; margin-top: -0.5%;") 
+          if level == 'admin'
+            a(href="/resources/admin?type=Exam") Exam
+            a(href="/resources/admin?type=Compiler") Compiler
+            a(href="/resources/admin?type=Program") Program
+            a(href="/resources/admin?type=Worksheet") Worksheet
+            a(href="/resources/admin?type=Slides") Slides
+          else
+            a(href="/resources/type?type=Exam") Exam
+            a(href="/resources/type?type=Compiler") Compiler
+            a(href="/resources/type?type=Program") Program
+            a(href="/resources/type?type=Worksheet") Worksheet
+            a(href="/resources/type?type=Slides") Slides
+      if level == 'consumer'
+        a(href="/resources").w3-right Resources
+      else if level == 'producer'
+        a(href="/upload").w3-right Upload File
+        a(href="/resources").w3-right Resources
+      else if level == 'admin'
+        a(href="/logs").w3-right Logs
+        a(href="/upload").w3-right Upload File
+        a(href="/resources/admin").w3-right Resources
+        a(href="/users").w3-right Users
+      // Noticias
+      // Logs
